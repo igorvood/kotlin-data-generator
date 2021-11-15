@@ -3,7 +3,7 @@ package ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.DataType
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.FieldName
 
-data class MetaProperty<OUT_TYPE : DataType>(
+open class MetaProperty<OUT_TYPE : DataType>(
     val name: FieldName,
     val type: OUT_TYPE,
     val isNotNull: Boolean,

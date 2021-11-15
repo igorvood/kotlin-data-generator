@@ -1,19 +1,23 @@
 package ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta
 
-import ru.vood.datagenerator.kotlindatagenerator.dsl.data.*
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.AbstractMeta
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.AbstractMeta._NULL
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.Builder
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.DataType
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.FieldName
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-fun stringNew() = MetaPropertyBuilder<STRING>()
-
-class MetaPropertyBuilder<R : DataType>(
+class MetaPropertyBuilder<R : DataType> internal constructor(
     var name: FieldName = "",
-    var type: R? = null,
+    val type: R,
     var isNotNull: Boolean = false,
-//    var function: GenerateFieldValueFunction<ET_ID, DataType<R>> = { _, _ ->
-//        error("Необходимо определить ф-цию в мете")
-//    }
 ) : Builder<MetaProperty<R>> {
+
+    internal infix fun NOT(n: _NULL): MetaPropertyBuilder<R> {
+        isNotNull = true
+        return this
+    }
 
     operator fun provideDelegate(
         thisRef: AbstractMeta,
@@ -30,7 +34,7 @@ class MetaPropertyBuilder<R : DataType>(
     }
 
     fun build(): MetaProperty<R> {
-        return MetaProperty(name, type!!, isNotNull)
+        return MetaProperty(name, type, isNotNull)
     }
 
 }

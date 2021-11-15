@@ -1,11 +1,24 @@
 package ru.vood.datagenerator.kotlindatagenerator.dsl.data
 
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta.MetaProperty
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta.MetaPropertyBuilder
 import kotlin.reflect.jvm.jvmName
 
 abstract class AbstractMeta internal constructor() {
     val name: EntityName = this::class.jvmName
     val property: MutableMap<String, MetaProperty<*>> = mutableMapOf()
+    val primaryKey: MutableMap<String, MetaProperty<*>> = mutableMapOf()
+
+
+    internal object _NULL
+
+    internal val NULL = _NULL
+
+    internal val string = MetaPropertyBuilder(type = STRING)
+    internal val date = MetaPropertyBuilder(type = DATE)
+    internal val number = MetaPropertyBuilder(type = NUMBER)
+    internal val boolean = MetaPropertyBuilder(type = BOOLEAN)
+
 //    val ck: MutableSet<MetaCheck<EntityTemplate<*>>> = mutableSetOf()
 //    val fk: MutableSet<MetaFk<EntityTemplate<*>>> = mutableSetOf()
 
@@ -17,13 +30,13 @@ abstract class AbstractMeta internal constructor() {
      inline fun <reified Z> ref() = PropBuilder<Z>()
      inline fun <reified Z> set() = PropBuilder<Set<Z>>()*/
 
- /*   inner class PropBuilder<R>(
-        var name: FieldName = "",
-        val type: DataType<R>,
-        val isNotNull: Boolean,
+    /*   inner class PropBuilder<R>(
+           var name: FieldName = "",
+           val type: DataType<R>,
+           val isNotNull: Boolean,
 
-//        var function: GenerateFieldValueFunction< DataType<R>> = { _, _ ->
-//            error("Необходимо определить ф-цию в мете")
-//        }
-    ) : Builder<MetaProperty<R>>*/
+   //        var function: GenerateFieldValueFunction< DataType<R>> = { _, _ ->
+   //            error("Необходимо определить ф-цию в мете")
+   //        }
+       ) : Builder<MetaProperty<R>>*/
 }
