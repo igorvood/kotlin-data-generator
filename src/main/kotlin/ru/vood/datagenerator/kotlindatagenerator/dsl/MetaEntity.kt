@@ -12,6 +12,7 @@ data class MetaEntity<ID_TYPE>
     val fk: Set<MetaFk<EntityTemplate<ID_TYPE>>> = setOf(),
 )
 
+@Deprecated("asda")
 data class MetaProperty<ID_TYPE, OUT_TYPE>(
     val name: FieldName,
     val function: GenerateFieldValueFunction<ID_TYPE, DataType<OUT_TYPE>>

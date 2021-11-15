@@ -17,7 +17,6 @@ abstract class EntityTemplate<ID_TYPE>(
 
     val id: DataType<ID_TYPE> = object : DataType<ID_TYPE> {
         override fun invoke(): ID_TYPE = id
-
     }
 
     override fun invoke(): EntityTemplate<ID_TYPE> = this
