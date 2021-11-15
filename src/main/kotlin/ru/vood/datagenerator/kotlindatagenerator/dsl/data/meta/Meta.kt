@@ -1,7 +1,7 @@
 package ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta
 
-import ru.vood.datagenerator.kotlindatagenerator.dsl.FieldName
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.DataType
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.FieldName
 
 data class MetaProperty<OUT_TYPE>(
     val name: FieldName,

@@ -1,7 +1,5 @@
 package ru.vood.datagenerator.kotlindatagenerator.dsl.data
 
-import ru.vood.datagenerator.kotlindatagenerator.dsl.EntityName
-import ru.vood.datagenerator.kotlindatagenerator.dsl.FieldName
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta.MetaProperty
 import kotlin.reflect.jvm.jvmName
 

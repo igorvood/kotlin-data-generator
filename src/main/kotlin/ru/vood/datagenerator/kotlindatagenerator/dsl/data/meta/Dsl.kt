@@ -1,11 +1,13 @@
 package ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta
 
-import ru.vood.datagenerator.kotlindatagenerator.dsl.FieldName
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.AbstractMeta
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.Builder
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.DataType
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.FieldName
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
+
+fun stringNew() = MetaPropertyBuilder<String>()
 
 class MetaPropertyBuilder<R>(
     var name: FieldName = "",
@@ -24,18 +26,12 @@ class MetaPropertyBuilder<R>(
         thisRef: AbstractMeta,
         property: KProperty<*>
     ): ReadOnlyProperty<AbstractMeta, MetaProperty<R>> {
-        name = property.name
-//        val mEntBuild: MetaEntBuilder<ET_ID> = this@MetaEntBuilder
-//        mEntBuild.propertyBuilder.add(this@MetaPropertyBuilder)
+        this@MetaPropertyBuilder.name = property.name
+        val metaProp = this@MetaPropertyBuilder.build()
+        if (thisRef.property.putIfAbsent(property.name, metaProp) != null) {
+            error("property ${property.name} for class ${thisRef::class.java} all ready added")
+        }
         return ReadOnlyProperty { thisRef, property ->
-            this@MetaPropertyBuilder.name = property.name
-            val metaProp = this@MetaPropertyBuilder.build()
-            if (thisRef.property.putIfAbsent(property.name, metaProp)?.let { error("") }==null){
-                error("property ${property.name} for class ${thisRef::class.java} all ready added")
-            }
-//            val putIfAbsent: MetaProperty<*> = thisRef.property.putIfAbsent(property.name, metaProp)?.let { error("") }
-
-//            thisRef.property[property.name] = metaProp
             return@ReadOnlyProperty metaProp
         }
     }
