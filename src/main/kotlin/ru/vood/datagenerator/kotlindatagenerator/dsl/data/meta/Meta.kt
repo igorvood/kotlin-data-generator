@@ -3,9 +3,9 @@ package ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.DataType
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.FieldName
 
-data class MetaProperty<OUT_TYPE>(
+data class MetaProperty<OUT_TYPE : DataType>(
     val name: FieldName,
-    val type: DataType<OUT_TYPE>,
+    val type: OUT_TYPE,
     val isNotNull: Boolean,
 //    val function: GenerateFieldValueFunction<ID_TYPE, DataType<OUT_TYPE>>
 ) //: (EntityTemplate<ID_TYPE>) -> OUT_TYPE

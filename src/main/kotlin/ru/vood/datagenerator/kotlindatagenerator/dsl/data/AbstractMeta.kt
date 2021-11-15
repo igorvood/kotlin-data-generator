@@ -17,7 +17,7 @@ abstract class AbstractMeta internal constructor() {
      inline fun <reified Z> ref() = PropBuilder<Z>()
      inline fun <reified Z> set() = PropBuilder<Set<Z>>()*/
 
-    inner class PropBuilder<R>(
+ /*   inner class PropBuilder<R>(
         var name: FieldName = "",
         val type: DataType<R>,
         val isNotNull: Boolean,
@@ -25,5 +25,5 @@ abstract class AbstractMeta internal constructor() {
 //        var function: GenerateFieldValueFunction< DataType<R>> = { _, _ ->
 //            error("Необходимо определить ф-цию в мете")
 //        }
-    ) : Builder<MetaProperty<R>>
+    ) : Builder<MetaProperty<R>>*/
 }
