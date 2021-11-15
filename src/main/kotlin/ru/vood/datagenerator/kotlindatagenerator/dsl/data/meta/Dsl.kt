@@ -49,7 +49,15 @@ class MetaPrimaryKeyBuilder internal constructor(
 
         this@MetaPrimaryKeyBuilder.name = property.name
         val metaPk = this@MetaPrimaryKeyBuilder.build()
-        thisRef.pk = metaPk
+        val nullableCols = cols.filter { !it.isNotNull }.joinToString(", ") { it.name }
+        if (nullableCols!="") error("in primary key $name for class ${thisRef::class.java} use nullable columns => $nullableCols ")
+
+
+        if (thisRef.pk == null) {
+            thisRef.pk = metaPk
+        } else {
+            error("primary key ${thisRef.pk!!.name} for class ${thisRef::class.java} all ready added ")
+        }
         return ReadOnlyProperty { thisRef, property ->
             return@ReadOnlyProperty metaPk
         }

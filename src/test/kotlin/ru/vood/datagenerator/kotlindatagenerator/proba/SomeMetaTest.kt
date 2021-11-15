@@ -28,7 +28,7 @@ internal class SomeMetaTest {
         Assertions.assertEquals(DATE, someMeta.d1.type)
         Assertions.assertEquals(BOOLEAN, someMeta.b1.type)
         Assertions.assertTrue(someMeta.s1.isNotNull)
-        Assertions.assertFalse(someMeta.n1.isNotNull)
+        Assertions.assertTrue(someMeta.n1.isNotNull)
         Assertions.assertFalse(someMeta.d1.isNotNull)
         Assertions.assertFalse(someMeta.b1.isNotNull)
         // constraint
@@ -39,7 +39,7 @@ internal class SomeMetaTest {
 
     internal open class SomeMeta : AbstractMeta() {
         val s1 by string NOT NULL //genVal { q, w -> id } //getFun()// stdStr()
-        val n1 by number //genVal { q, w -> id } //getFun()// stdStr()
+        val n1 by number NOT NULL//genVal { q, w -> id } //getFun()// stdStr()
         val d1 by date //genVal { q, w -> id } //getFun()// stdStr()
         val b1 by boolean //genVal { q, w -> id } //getFun()// stdStr()
 
