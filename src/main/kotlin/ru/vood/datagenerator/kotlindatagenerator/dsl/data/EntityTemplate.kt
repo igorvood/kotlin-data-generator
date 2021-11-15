@@ -1,5 +1,6 @@
-package ru.vood.datagenerator.kotlindatagenerator.dsl
+package ru.vood.datagenerator.kotlindatagenerator.dsl.data
 
+import ru.vood.datagenerator.kotlindatagenerator.dsl.*
 import java.math.BigDecimal
 import java.time.LocalDateTime
 

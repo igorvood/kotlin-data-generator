@@ -1,5 +1,6 @@
 package ru.vood.datagenerator.kotlindatagenerator.dsl
 
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.EntityTemplate
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import kotlin.math.abs

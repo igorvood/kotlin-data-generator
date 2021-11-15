@@ -1,5 +1,8 @@
 package ru.vood.datagenerator.kotlindatagenerator.dsl
 
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.DataType
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.EntityTemplate
+
 typealias GenerateIdValueFunction<T> = () -> DataType<T>
 typealias GenerateFieldValueFunction<ID_TYPE, OUT_TYPE> = (EntityTemplate<ID_TYPE>, String) -> OUT_TYPE
 typealias GenerateFieldValueFunctionDsl<ID_TYPE, OUT_TYPE> = (EntityTemplate<ID_TYPE>, String) -> OUT_TYPE

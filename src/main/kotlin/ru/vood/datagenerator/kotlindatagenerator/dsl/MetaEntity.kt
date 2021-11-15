@@ -1,5 +1,8 @@
 package ru.vood.datagenerator.kotlindatagenerator.dsl
 
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.DataType
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.EntityTemplate
+
 data class MetaEntity<ID_TYPE>
 //        where T: EntityTemplate<Q>
     (
