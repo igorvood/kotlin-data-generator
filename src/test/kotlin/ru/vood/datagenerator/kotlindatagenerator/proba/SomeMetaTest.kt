@@ -10,7 +10,7 @@ internal class SomeMetaTest {
     fun testMeta() {
         val someMeta = SomeMeta()
         Assertions.assertEquals(someMeta.s1, someMeta.property["s1"])
-        Assertions.assertEquals(1, someMeta.property.size)
+        Assertions.assertEquals(4, someMeta.property.size)
         Assertions.assertEquals(STRING, someMeta.s1.type)
         Assertions.assertTrue(someMeta.s1.isNotNull)
     }
@@ -31,6 +31,9 @@ internal class SomeMetaTest {
         Assertions.assertFalse(someMeta.n1.isNotNull)
         Assertions.assertFalse(someMeta.d1.isNotNull)
         Assertions.assertFalse(someMeta.b1.isNotNull)
+        // constraint
+        Assertions.assertNotNull(someMeta.pk)
+        Assertions.assertEquals(someMeta.pk!!.cols, listOf(someMeta.s1, someMeta.n1))
 
     }
 
@@ -39,6 +42,8 @@ internal class SomeMetaTest {
         val n1 by number //genVal { q, w -> id } //getFun()// stdStr()
         val d1 by date //genVal { q, w -> id } //getFun()// stdStr()
         val b1 by boolean //genVal { q, w -> id } //getFun()// stdStr()
+
+        val pk_1 by primaryKey(s1, n1)
     }
 
     object Singleton:SomeMeta()

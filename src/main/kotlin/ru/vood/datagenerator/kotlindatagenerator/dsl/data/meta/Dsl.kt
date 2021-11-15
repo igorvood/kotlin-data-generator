@@ -1,10 +1,7 @@
 package ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta
 
-import ru.vood.datagenerator.kotlindatagenerator.dsl.data.AbstractMeta
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.*
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.AbstractMeta._NULL
-import ru.vood.datagenerator.kotlindatagenerator.dsl.data.Builder
-import ru.vood.datagenerator.kotlindatagenerator.dsl.data.DataType
-import ru.vood.datagenerator.kotlindatagenerator.dsl.data.FieldName
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -33,8 +30,34 @@ class MetaPropertyBuilder<R : DataType> internal constructor(
         }
     }
 
-    fun build(): MetaProperty<R> {
+    private fun build(): MetaProperty<R> {
         return MetaProperty(name, type, isNotNull)
     }
+
+}
+
+class MetaPrimaryKeyBuilder internal constructor(
+    var name: ConstraintName = "",
+    var cols: Array<out MetaProperty<DataType>>,
+//    var cols: Array<MetaProperty<DataType>>,
+) : Builder<MetaPrimaryKey<DataType>> {
+
+    operator fun provideDelegate(
+        thisRef: AbstractMeta,
+        property: KProperty<*>
+    ): ReadOnlyProperty<AbstractMeta, MetaPrimaryKey<DataType>> {
+
+        this@MetaPrimaryKeyBuilder.name = property.name
+        val metaPk = this@MetaPrimaryKeyBuilder.build()
+        thisRef.pk = metaPk
+        return ReadOnlyProperty { thisRef, property ->
+            return@ReadOnlyProperty metaPk
+        }
+    }
+
+    private fun build(): MetaPrimaryKey<DataType> {
+        return MetaPrimaryKey(name = name, col = cols)
+    }
+
 
 }
