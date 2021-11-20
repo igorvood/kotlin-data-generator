@@ -15,7 +15,8 @@ internal class TreeTest {
         val operandLeft = MetaProperty("s1", STRING)()
         val operandRight = MetaProperty("s2", STRING)()
         val operationLeaf1 = operandLeft + operandRight
-        val operationLeaf = OperationTree<MetaProperty<STRING>,MetaProperty<STRING>,STRING>(Operation.PLUS, operandLeft, operandRight)
+        val operationLeaf =
+            OperationTree<MetaProperty<STRING>, MetaProperty<STRING>, STRING>(Operation.PLUS, operandLeft, operandRight)
         Assertions.assertEquals(operationLeaf1, operationLeaf)
     }
 
@@ -25,14 +26,20 @@ internal class TreeTest {
         val operationLeaf3 = MetaProperty("s2", STRING)() + MetaProperty("s3", NUMBER).invoke()
 
         val operationTreeNode1 =
-            MetaProperty("s2", STRING).invoke() + MetaProperty("s3", NUMBER).invoke() * MetaProperty("s2", STRING).invoke() + MetaProperty(
+            MetaProperty("s2", STRING).invoke() + MetaProperty("s3", NUMBER).invoke() * MetaProperty(
+                "s2",
+                STRING
+            ).invoke() + MetaProperty(
                 "s3",
                 NUMBER
             ).invoke()
         val operationTreeNode = operationLeaf2 + operationLeaf3
 
         val operationTreeNode2 =
-            (MetaProperty("s2", STRING).invoke() + MetaProperty("s3", NUMBER).invoke()) * MetaProperty("s2", STRING).invoke() + MetaProperty(
+            (MetaProperty("s2", STRING).invoke() + MetaProperty("s3", NUMBER).invoke()) * MetaProperty(
+                "s2",
+                STRING
+            ).invoke() + MetaProperty(
                 "s3",
                 NUMBER
             ).invoke()
@@ -45,18 +52,14 @@ internal class TreeTest {
 
     @Test
     fun testTreeLogical() {
-        val const = const("1")
+        val const = const("1")()
 
-//        val metaProperty = MetaProperty("s2", STRING).grater(const)
+        val metaProperty1 = MetaProperty("s2", STRING)()
+        val operationTreeNode = const + metaProperty1
+        val metaProperty = metaProperty1.graters(const)
+        println(metaProperty.str())
     }
 
 
 }
 
-private inline fun <reified PROP_TYPE : STRING> MetaProperty<PROP_TYPE>.grater(metaProperty: MetaProperty<PROP_TYPE>): Any {
-//    val treeLeft = this as
-    val treeLeft: MetaProperty<PROP_TYPE> = this
-    val treeRight: MetaProperty<PROP_TYPE> = metaProperty
-//    OperationTree<MetaProperty<PROP_TYPE>, MetaProperty<PROP_TYPE>, BOOLEAN>(Operation.GRATER, treeLeft, treeRight)
-    TODO()
-}

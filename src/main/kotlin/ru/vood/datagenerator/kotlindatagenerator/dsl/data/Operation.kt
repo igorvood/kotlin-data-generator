@@ -64,8 +64,12 @@ inline operator fun <reified PROP_TYPE> OperationTreeNode<PROP_TYPE>.div(increme
 inline operator fun <reified PROP_TYPE> OperationTreeNode<PROP_TYPE>.times(increment: OperationTreeNode<PROP_TYPE>): OperationTreeNode<PROP_TYPE> =
     OperationTree(Operation.MULTIPLY, this, increment)
 
-inline infix fun <reified PROP_TYPE : NUMBER> OperationTreeNode<PROP_TYPE>.grater(increment: OperationTreeNode<PROP_TYPE>): OperationTreeNode<BOOLEAN> =
-    OperationTree(Operation.GRATER, this, increment)
+inline fun <reified T> OperationTreeNode<T>.graters(const: OperationTreeNode<T>): OperationTreeNode<BOOLEAN> {
+    return when (T::class.java) {
+        STRING.javaClass, NUMBER.javaClass, DATE.javaClass -> OperationTree(Operation.GRATER, this, const)
+        else -> error("class ${T::class.java} not supported")
+    }
+}
 
 
 /*
