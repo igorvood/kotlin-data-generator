@@ -19,7 +19,4 @@ abstract class AbstractMeta internal constructor() {
 
     internal fun primaryKey(vararg col: MetaProperty<DataType>) = MetaPrimaryKeyBuilder(cols = col)
 
-    internal fun check(ck: OperationTree<BOOLEAN>.() -> Unit): Unit {
-        TODO()
-    }
 }

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.*
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta.MetaProperty
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta.const
 
 
 internal class TreeTest {
@@ -13,7 +14,7 @@ internal class TreeTest {
         val operandLeft = MetaProperty("s1", STRING)
         val operandRight = MetaProperty("s2", STRING)
         val operationLeaf1 = operandLeft + operandRight
-        val operationLeaf = OperationTree(Operation.PLUS, operandLeft, operandRight)
+        val operationLeaf = OperationTree<String, String, String>(Operation.PLUS, operandLeft, operandRight)
         Assertions.assertEquals(operationLeaf1, operationLeaf)
     }
 
@@ -41,5 +42,20 @@ internal class TreeTest {
 
     }
 
+    @Test
+    fun testTreeLogical() {
+        val const = const("1")
 
+//        val metaProperty = MetaProperty("s2", STRING).grater(const)
+    }
+
+
+}
+
+private inline fun <reified PROP_TYPE : STRING> MetaProperty<PROP_TYPE>.grater(metaProperty: MetaProperty<PROP_TYPE>): Any {
+//    val treeLeft = this as
+    val treeLeft: MetaProperty<PROP_TYPE> = this
+    val treeRight: MetaProperty<PROP_TYPE> = metaProperty
+//    OperationTree<MetaProperty<PROP_TYPE>, MetaProperty<PROP_TYPE>, BOOLEAN>(Operation.GRATER, treeLeft, treeRight)
+    TODO()
 }

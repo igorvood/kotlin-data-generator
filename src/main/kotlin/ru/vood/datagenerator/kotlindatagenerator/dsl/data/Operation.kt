@@ -15,6 +15,7 @@ enum class Operation(val strOper: String) {
     MINUS("-"),
     MULTIPLY("*"),
     DIVIDE("/"),
+    GRATER(">"),
 }
 
 interface Value<T> {
@@ -27,28 +28,28 @@ sealed interface OperationTreeNode<out T> {
         return qw(this).replace("  ", " ")
     }
 
-    private fun qw(op: OperationTreeNode<T>): String {
+    private fun qw(op: OperationTreeNode<*>): String {
         return when (op) {
             is OperationConst -> op.value.toString()
-            is OperationTree -> """( ${qw(op.treeLeft)} ${op.operator.strOper} ${qw(op.treeRight)} )"""
+            is OperationTree<*,*,*> -> """( ${qw(op.treeLeft)} ${op.operator.strOper} ${qw(op.treeRight)} )"""
 
         }
     }
 }
 
-open class OperationConst<T>(
+abstract class OperationConst<T>(
     private val v: Value<T>
 ) : OperationTreeNode<T> {
     override val value: T
         get() = v.value
 }
 
-data class OperationTree<T>(
+data class OperationTree<TL, TR, R>(
     val operator: Operation,
-    val treeLeft: OperationTreeNode<T>,
-    val treeRight: OperationTreeNode<T>,
-) : OperationTreeNode<T> {
-    override val value: T
+    val treeLeft: OperationTreeNode<TL>,
+    val treeRight: OperationTreeNode<TR>,
+) : OperationTreeNode<R> {
+    override val value: R
         get() = TODO("Not yet implemented")
 }
 
@@ -63,6 +64,9 @@ inline operator fun <reified PROP_TYPE> OperationTreeNode<PROP_TYPE>.div(increme
 
 inline operator fun <reified PROP_TYPE> OperationTreeNode<PROP_TYPE>.times(increment: OperationTreeNode<PROP_TYPE>): OperationTreeNode<PROP_TYPE> =
     OperationTree(Operation.MULTIPLY, this, increment)
+
+inline infix fun<reified PROP_TYPE: NUMBER> OperationTreeNode<PROP_TYPE>.grater(increment: OperationTreeNode<PROP_TYPE>): OperationTreeNode<BOOLEAN> =
+    OperationTree(Operation.GRATER, this, increment)
 
 
 /*

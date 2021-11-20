@@ -1,29 +1,7 @@
 package ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta
 
-import ru.vood.datagenerator.kotlindatagenerator.dsl.data.*
-
-open class MetaProperty<out PROP_TYPE : DataType>(
-    val name: FieldName,
-    val type: PROP_TYPE,
-    val isNotNull: Boolean = true,
-) : OperationConst<String>(object : Value<String> {
-    override val value: String
-        get() = name
-}) {
-
-}
-
-//inline operator fun <reified PROP_TYPE: DataType> MetaProperty<PROP_TYPE>.plus(increment: MetaProperty<PROP_TYPE>): OperationTree<MetaProperty<PROP_TYPE>> =
-//    OperationTree(Operation.PLUS, this, increment)
-//
-//inline operator fun <reified PROP_TYPE: DataType> MetaProperty<PROP_TYPE>.minus(increment: MetaProperty<PROP_TYPE>): OperationTree<MetaProperty<PROP_TYPE>> =
-//    OperationTree(Operation.MINUS, this, increment)
-//
-//inline operator fun <reified PROP_TYPE: DataType> MetaProperty<PROP_TYPE>.div(increment: MetaProperty<PROP_TYPE>): OperationTree<MetaProperty<PROP_TYPE>> =
-//    OperationTree(Operation.DIVIDE, this, increment)
-//
-//inline operator fun <reified PROP_TYPE: DataType> MetaProperty<PROP_TYPE>.times(increment: MetaProperty<PROP_TYPE>): OperationTree<MetaProperty<PROP_TYPE>> =
-//    OperationTree(Operation.MULTIPLY, this, increment)
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.ConstraintName
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.DataType
 
 open class MetaPrimaryKey<out PROP_TYPE : DataType>(
     val name: ConstraintName,
@@ -35,7 +13,7 @@ open class MetaPrimaryKey<out PROP_TYPE : DataType>(
 
 open class MetaCheck(
     val name: ConstraintName,
-    val checkFun: OperationTree<BOOLEAN>
+//    val checkFun: OperationTree<BOOLEAN>
 ) {
 
 }
