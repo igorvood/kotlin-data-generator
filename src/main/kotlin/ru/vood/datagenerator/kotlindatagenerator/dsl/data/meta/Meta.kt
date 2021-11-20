@@ -20,5 +20,12 @@ open class MetaPrimaryKey<out PROP_TYPE : DataType>(
     vararg col: MetaProperty<PROP_TYPE>,
     ){
     val cols = col.asList()
+}
+
+
+open class MetaCheck(
+    val name: ConstraintName,
+    val checkFun: CheckScope.()-> Boolean
+){
 
 }

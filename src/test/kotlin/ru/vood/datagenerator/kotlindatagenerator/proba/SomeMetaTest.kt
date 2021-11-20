@@ -1,5 +1,8 @@
 package ru.vood.datagenerator.kotlindatagenerator.proba
 
+import io.mockk.confirmVerified
+import io.mockk.spyk
+import io.mockk.verify
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.*
@@ -16,8 +19,8 @@ internal class SomeMetaTest {
     }
 
     @Test
-    fun singleton(){
-        val someMeta =Singleton
+    fun singleton() {
+        val someMeta = Singleton
         Assertions.assertEquals(someMeta.s1, someMeta.property["s1"])
         Assertions.assertEquals(someMeta.n1, someMeta.property["n1"])
         Assertions.assertEquals(someMeta.d1, someMeta.property["d1"])
@@ -34,7 +37,15 @@ internal class SomeMetaTest {
         // constraint
         Assertions.assertNotNull(someMeta.pk)
         Assertions.assertEquals(someMeta.pk!!.cols, listOf(someMeta.s1, someMeta.n1))
+    }
 
+    @Test
+    fun cntCall() {
+        val someMeta = spyk(SomeMeta())
+        val s1 = someMeta.s1
+        val pk1 = someMeta.pk_1
+        verify { someMeta.s1 }
+        confirmVerified(someMeta)
     }
 
     internal open class SomeMeta : AbstractMeta() {
@@ -46,5 +57,5 @@ internal class SomeMetaTest {
         val pk_1 by primaryKey(s1, n1)
     }
 
-    object Singleton:SomeMeta()
+    object Singleton : SomeMeta()
 }
