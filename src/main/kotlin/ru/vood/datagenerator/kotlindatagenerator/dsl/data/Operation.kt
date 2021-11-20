@@ -32,7 +32,6 @@ sealed interface OperationTreeNode<out T> {
         return when (op) {
             is OperationConst -> op.value.toString()
             is OperationTree<*,*,*> -> """( ${qw(op.treeLeft)} ${op.operator.strOper} ${qw(op.treeRight)} )"""
-
         }
     }
 }
