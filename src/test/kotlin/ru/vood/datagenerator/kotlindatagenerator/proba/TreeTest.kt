@@ -12,8 +12,8 @@ internal class TreeTest {
 
     @Test
     fun testTreePlus() {
-        val operandLeft = MetaProperty("s1", STRING).invoke()
-        val operandRight = MetaProperty("s2", STRING).invoke()
+        val operandLeft = MetaProperty("s1", STRING)()
+        val operandRight = MetaProperty("s2", STRING)()
         val operationLeaf1 = operandLeft + operandRight
         val operationLeaf = OperationTree<MetaProperty<STRING>,MetaProperty<STRING>,STRING>(Operation.PLUS, operandLeft, operandRight)
         Assertions.assertEquals(operationLeaf1, operationLeaf)
@@ -21,8 +21,8 @@ internal class TreeTest {
 
     @Test
     fun testTreeOrder() {
-        val operationLeaf2 = MetaProperty("s2", STRING).invoke() + MetaProperty("s3", NUMBER).invoke()
-        val operationLeaf3 = MetaProperty("s2", STRING).invoke() + MetaProperty("s3", NUMBER).invoke()
+        val operationLeaf2 = MetaProperty("s2", STRING)() + MetaProperty("s3", NUMBER).invoke()
+        val operationLeaf3 = MetaProperty("s2", STRING)() + MetaProperty("s3", NUMBER).invoke()
 
         val operationTreeNode1 =
             MetaProperty("s2", STRING).invoke() + MetaProperty("s3", NUMBER).invoke() * MetaProperty("s2", STRING).invoke() + MetaProperty(

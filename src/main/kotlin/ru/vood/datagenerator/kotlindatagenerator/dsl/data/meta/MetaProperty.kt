@@ -13,13 +13,22 @@ open class MetaProperty<out PROP_TYPE : DataType>(
         get() = name
 }
 
-inline operator fun <reified Q : DataType> MetaProperty<Q>.invoke(): OperationConst<MetaProperty<Q>, String> {
+operator fun <Q : DataType> MetaProperty<Q>.invoke(): OperationConst<MetaProperty<Q>, String> {
     val metaProperty = this
     return OperationConst(object : Value<String> {
         override val value: String
             get() = metaProperty.value
     })
 }
+
+
+/*inline operator fun <reified Q : DataType> MetaProperty<Q>.invoke(): OperationConst<MetaProperty<Q>, String> {
+    val metaProperty = this
+    return OperationConst(object : Value<String> {
+        override val value: String
+            get() = metaProperty.value
+    })
+}*/
 
 fun const(v: String): MetaProperty<STRING> = MetaProperty("const", STRING, true, v)
 
