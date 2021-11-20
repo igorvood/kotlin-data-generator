@@ -1,9 +1,6 @@
 package ru.vood.datagenerator.kotlindatagenerator.dsl.data
 
-import ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta.MetaPrimaryKey
-import ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta.MetaPrimaryKeyBuilder
-import ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta.MetaProperty
-import ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta.MetaPropertyBuilder
+import ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta.*
 import kotlin.reflect.jvm.jvmName
 
 abstract class AbstractMeta internal constructor() {
@@ -21,4 +18,8 @@ abstract class AbstractMeta internal constructor() {
     internal val boolean = MetaPropertyBuilder(type = BOOLEAN)
 
     internal fun primaryKey(vararg col: MetaProperty<DataType>) = MetaPrimaryKeyBuilder(cols = col)
+
+    internal fun check(ck: OperationTree<BOOLEAN>.() -> Unit): Unit {
+        TODO()
+    }
 }

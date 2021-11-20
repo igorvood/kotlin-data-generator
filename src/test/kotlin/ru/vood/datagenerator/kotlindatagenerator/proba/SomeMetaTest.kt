@@ -44,7 +44,10 @@ internal class SomeMetaTest {
         val someMeta = spyk(SomeMeta())
         val s1 = someMeta.s1
         val pk1 = someMeta.pk_1
-        verify { someMeta.s1 }
+        verify {
+            someMeta.s1
+            someMeta.pk_1
+        }
         confirmVerified(someMeta)
     }
 
