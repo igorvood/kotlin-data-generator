@@ -22,7 +22,7 @@ interface Value<T> {
     val value: T
 }
 
-sealed interface OperationTreeNode<out T> {
+sealed class OperationTreeNode<out T> {
     fun str(): String {
         return qw(this).replace("  ", " ")
     }
@@ -39,7 +39,7 @@ sealed interface OperationTreeNode<out T> {
 
 open class OperationConst<T, PRN>(
     private val v: Value<PRN>
-) : OperationTreeNode<T>, Value<PRN> {
+) : OperationTreeNode<T>(), Value<PRN> {
     override val value: PRN
         get() = v.value
 }
@@ -48,7 +48,7 @@ data class OperationTree<TL, TR, R>(
     val operator: Operation,
     val treeLeft: OperationTreeNode<TL>,
     val treeRight: OperationTreeNode<TR>,
-) : OperationTreeNode<R> {
+) : OperationTreeNode<R>() {
 
 }
 
@@ -65,10 +65,11 @@ inline operator fun <reified PROP_TYPE> OperationTreeNode<PROP_TYPE>.times(incre
     OperationTree(Operation.MULTIPLY, this, increment)
 
 inline fun <reified T> OperationTreeNode<T>.graters(const: OperationTreeNode<T>): OperationTreeNode<BOOLEAN> {
-    return when (T::class.java) {
+    val operationTreeNode: OperationTreeNode<BOOLEAN> = when (T::class.java) {
         STRING.javaClass, NUMBER.javaClass, DATE.javaClass -> OperationTree(Operation.GRATER, this, const)
         else -> error("class ${T::class.java} not supported")
     }
+    return operationTreeNode
 }
 
 
