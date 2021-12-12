@@ -26,13 +26,10 @@ internal class TreeTest {
         val operationLeaf3 = MetaProperty("s2", STRING)() + MetaProperty("s3", NUMBER).invoke()
 
         val operationTreeNode1 =
-            MetaProperty("s2", STRING).invoke() + MetaProperty("s3", NUMBER).invoke() * MetaProperty(
-                "s2",
-                STRING
-            ).invoke() + MetaProperty(
-                "s3",
-                NUMBER
-            ).invoke()
+            MetaProperty("s2", STRING)() +
+                    MetaProperty("s3", NUMBER)() *
+                    MetaProperty("s2", STRING)() +
+                    MetaProperty("s3", NUMBER)()
         val operationTreeNode = operationLeaf2 + operationLeaf3
 
         val operationTreeNode2 =
