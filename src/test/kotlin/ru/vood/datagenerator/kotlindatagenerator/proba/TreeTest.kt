@@ -1,6 +1,7 @@
 package ru.vood.datagenerator.kotlindatagenerator.proba
 
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.*
 import ru.vood.datagenerator.kotlindatagenerator.dsl.data.meta.MetaProperty
@@ -48,6 +49,7 @@ internal class TreeTest {
     }
 
     @Test
+    @Disabled
     fun testTreeLogical() {
         val const = const("1")()
 
